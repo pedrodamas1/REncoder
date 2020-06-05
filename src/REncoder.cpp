@@ -35,7 +35,7 @@ REncoder::REncoder()
 
 
 // Constructor that creates instance and defines encoder pins.
-REncoder::REncoder(uint8_t DT, uint8_t CLK) : dataPin(DT), clockPin(CLK)
+REncoder::REncoder(uint8_t DT, uint8_t CLK, bool loop = false) : dataPin(DT), clockPin(CLK), looping(loop)
 {
 	pinMode( dataPin, INPUT );
 	pinMode( clockPin, INPUT );
@@ -51,10 +51,11 @@ REncoder::~REncoder()
 
 // This method defines the encoder pins if they haven't 
 // been defined before in the constructor.
-void REncoder::setup(uint8_t DT, uint8_t CLK)
+void REncoder::setup(uint8_t DT, uint8_t CLK, bool loop = false)
 {
 	dataPin = DT;
 	clockPin = CLK;
+	looping = loop;
 
 	pinMode( dataPin, INPUT );
 	pinMode( clockPin, INPUT );
@@ -182,9 +183,19 @@ char REncoder::direction_()
 void REncoder::normalize_()
 {
 	if (value < min) {
-		value = min;
+		if (looping) {
+			value = max;
+		}
+		else {
+			value = min;
+		}
 	}
 	else if (value > max) {
-		value = max;
+		if (looping) {
+			value = min;
+		}
+		else {
+			value = max;
+		}
 	}
 }

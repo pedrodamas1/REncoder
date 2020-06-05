@@ -47,19 +47,20 @@ class REncoder {
 
 	int min = -32000;
 	int max = +32000;
+	bool looping = false;
 
 
 public:
 	
 	// Overloaded constructor
 	REncoder();
-	REncoder(uint8_t DT, uint8_t CLK);
+	REncoder(uint8_t DT, uint8_t CLK, bool looping = false);
 
 	// Destructor
 	~REncoder();
 
 	// Useful public methods
-	void setup(uint8_t DT, uint8_t CLK);
+	void setup(uint8_t DT, uint8_t CLK, bool looping = false);
 	void loop();
 	int getValue();
 	void setValue(int value);

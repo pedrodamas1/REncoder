@@ -1,6 +1,6 @@
 #include "src/REncoder.h"
 
-REncoder myEncoder(6, 7);
+REncoder myEncoder(6, 7, true);
 
 void setup() {
   // put your setup code here, to run once:
