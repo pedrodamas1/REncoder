@@ -1,0 +1,7 @@
+REncoder KEYWORD 1
+setup KEYWORD 2
+loop KEYWORD 2
+getValue KEYWORD 2
+setValue KEYWORD 2
+setRange KEYWORD 2
+valueChanged KEYWORD 2
