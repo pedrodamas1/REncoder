@@ -49,8 +49,7 @@ REncoder::~REncoder()
 }
 
 
-// This method defines the encoder pins if they haven't 
-// been defined before in the constructor.
+// Alternative to the constructor for setting up the pins.
 void REncoder::setup(uint8_t DT, uint8_t CLK, bool loop = false)
 {
 	dataPin = DT;
@@ -62,7 +61,7 @@ void REncoder::setup(uint8_t DT, uint8_t CLK, bool loop = false)
 }
 
 
-// Main loop for the encoder
+// Main loop for the encoder.
 void REncoder::loop()
 {
 
@@ -85,21 +84,21 @@ void REncoder::loop()
 }
 
 
-// Returns the current value
+// Returns the current value.
 int REncoder::getValue()
 {
 	return value;
 }
 
 
-// Sets the value on the encoder
+// Sets the value on the encoder.
 void REncoder::setValue(int value) 
 {
 	this -> value = value;
 }
 
 
-// Sets the min/max range for the values
+// Sets the min/max range for the values.
 void REncoder::setRange(int min, int max)
 {
 	this -> min = min;
@@ -107,7 +106,7 @@ void REncoder::setRange(int min, int max)
 }
 
 
-// Checks if the value has changed
+// Checks if the value has changed.
 bool REncoder::valueChanged()
 {
 	if ( value == previousValue ) {
@@ -120,7 +119,7 @@ bool REncoder::valueChanged()
 }
 
 
-// This method check whether two arrays of length 4 are equal or not.
+// Check whether two arrays of length 4 are equal or not.
 bool REncoder::equal_(bool A[4], bool B[4])
 {
 	for ( int i = 0; i < 4; i++ ) {
@@ -132,8 +131,7 @@ bool REncoder::equal_(bool A[4], bool B[4])
 }
 
 
-// This method shifts the values in an array one place to the left,
-// and then adds a new value to the right.
+// Shift values in array one place to the left and add a new value to the right.
 void REncoder::append_(bool A[4], bool value)
 {
 	for ( int i = 0; i < 3; i++ ) {
@@ -143,7 +141,7 @@ void REncoder::append_(bool A[4], bool value)
 }
 
 
-// Check if the pin state has changed
+// Check if the pin state has changed.
 bool REncoder::stateChanged_()
 {
 	bool readA = digitalRead(dataPin);
@@ -165,6 +163,7 @@ bool REncoder::stateChanged_()
 }
 
 
+// Check direction of rotation.
 char REncoder::direction_()
 {
 	if ( equal_(stateA, cwA) && equal_(stateB, cwB) ) {
@@ -179,7 +178,7 @@ char REncoder::direction_()
 }
 
 
-//
+// Adjust "value" according to min/max and "looping".
 void REncoder::normalize_()
 {
 	if (value < min) {
